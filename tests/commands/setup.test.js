@@ -19,9 +19,9 @@ describe('setup', () => {
                 const fs = require('fs');
                 const path = require('path');
 
-                const currentDir = `${process.cwd() + path.sep}current${path.sep}`;
+                const currentDir = `${ process.cwd() + path.sep }current${ path.sep }`;
                 fs.mkdirSync(currentDir);
-                fs.writeFileSync(`${currentDir + path.sep}README`, '');
+                fs.writeFileSync(`${ currentDir + path.sep }README`, '');
             });
         });
 
@@ -39,7 +39,7 @@ describe('setup', () => {
         expect.assertions(1);
         const tmpDir = fs.mkdtempSync(os.tmpdir() + path.sep);
         process.chdir(tmpDir);
-        fs.writeFileSync(`${tmpDir + path.sep}README`, '');
+        fs.writeFileSync(`${ tmpDir + path.sep }README`, '');
 
         const setup = require('commands/setup');
 

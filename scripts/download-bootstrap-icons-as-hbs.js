@@ -32,7 +32,7 @@ const builder = new xml2js.Builder();
         let entries = fs.readdirSync('bootstrap');
         for (let entry of entries) {
             if (entry.endsWith('.svg')) {
-                let hbs = path.resolve('bootstrap', entry.substring(0, entry.length - 4) + '.hbs');
+                let hbs = path.resolve('bootstrap', `${ entry.substring(0, entry.length - 4) }.hbs`);
                 let svg = path.resolve('bootstrap', entry);
 
                 let data = await parser.parseStringPromise(fs.readFileSync(svg));
@@ -41,7 +41,7 @@ const builder = new xml2js.Builder();
                 // remove ?xml line
                 let lines = result.split('\n');
                 lines.splice(0,1);
-                fs.writeFileSync(hbs, lines.join('\n') + '\n');
+                fs.writeFileSync(hbs, `${ lines.join('\n') }\n`);
                 fs.unlinkSync(svg);
             }
         }

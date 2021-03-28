@@ -24,6 +24,6 @@ module.exports = {
             throw new Error(`.steadyrc already exists.`);
         }
 
-        fs.writeFileSync('.steadyrc', `${content }\n`);
+        fs.writeFileSync('.steadyrc', `${ content }\n`);
     }
 };

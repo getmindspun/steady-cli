@@ -17,12 +17,12 @@ function check(themeName) {
 
     const stats = stat(themeDir);
     if (!stats) {
-        throw new Error(`The configured theme does not exist: ${themeName}`);
+        throw new Error(`The configured theme does not exist: ${ themeName }`);
     }
 
     const packageJson = path.resolve(themeDir, 'package.json');
     if (!fs.existsSync(packageJson)) {
-        throw new Error(`The theme exists but is not valid since it doesn't contain 'package.json': ${themeDir}`);
+        throw new Error(`The theme exists but is not valid since it doesn't contain 'package.json': ${ themeDir }`);
     }
 }
 

@@ -5,10 +5,10 @@ const rimraf = require('rimraf');
 
 const tempDir = '/walk';
 const tempDir1 = '/walk/walk';
-const tempFile1 = `${tempDir}/temp1.txt`;
-const tempFile2 = `${tempDir}/temp2.txt`;
-const tempFile3 = `${tempDir1}/temp1.txt`;
-const tempFile4 = `${tempDir1}/temp2.txt`;
+const tempFile1 = `${ tempDir }/temp1.txt`;
+const tempFile2 = `${ tempDir }/temp2.txt`;
+const tempFile3 = `${ tempDir1 }/temp1.txt`;
+const tempFile4 = `${ tempDir1 }/temp2.txt`;
 
 describe('walk', () => {
     it('should contain specified files', async () => {

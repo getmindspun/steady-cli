@@ -15,7 +15,7 @@ describe('initrc', () => {
         process.chdir(tmpDir);
 
         expect(initrc.handler({})).toBeUndefined();
-        expect(fs.existsSync(`${tmpDir + path.sep}.steadyrc`)).toBeTruthy();
+        expect(fs.existsSync(`${ tmpDir + path.sep }.steadyrc`)).toBeTruthy();
 
         process.chdir(__dirname);
         rimraf.sync(tmpDir);
@@ -32,7 +32,7 @@ describe('initrc', () => {
 
         const tmpDir = fs.mkdtempSync(os.tmpdir() + path.sep);
         process.chdir(tmpDir);
-        fs.writeFileSync(`${tmpDir + path.sep}.steadyrc`, '');
+        fs.writeFileSync(`${ tmpDir + path.sep }.steadyrc`, '');
 
         expect(() => {
             initrc.handler({workdir: '.'});

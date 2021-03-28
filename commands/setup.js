@@ -12,7 +12,7 @@ const workdir = require('../utils/workdir');
 
 const GHOST_VERSION = '3.40.5-1';
 const GHOST_ZIPFILE = `Ghost-${ GHOST_VERSION }.zip`;
-const GHOST_URL = `https://github.com/ghoststead/Ghost/releases/download/v${ GHOST_VERSION }/${ GHOST_ZIPFILE}`;
+const GHOST_URL = `https://github.com/ghoststead/Ghost/releases/download/v${ GHOST_VERSION }/${ GHOST_ZIPFILE }`;
 const GHOST_DB_URL = `https://github.com/ghoststead/Ghost/releases/download/v${ GHOST_VERSION }/ghost.db`;
 
 const THEME_URL = 'https://github.com/ghoststead/ghost-theme-ghoststead/archive/master.zip';
@@ -37,7 +37,7 @@ module.exports = {
 
         console.log('Installing base Ghost image ...');
         execa.sync('ghost', ['install',
-            '--zip', `.dist/${ GHOST_ZIPFILE}`, '--db=sqlite3',
+            '--zip', `.dist/${ GHOST_ZIPFILE }`, '--db=sqlite3',
             '--no-prompt', '--no-stack', '--no-setup',
             '--dir', process.cwd()
         ], {stdio: 'inherit'});

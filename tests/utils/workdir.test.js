@@ -32,7 +32,7 @@ describe('workdir', () => {
             workdir.use({
                 workdir: tmpDir
             });
-        }).toThrow(`The specified workdir does not exist: ${tmpDir}`);
+        }).toThrow(`The specified workdir does not exist: ${ tmpDir }`);
     });
 
     it('should fail with not directory', () => {
@@ -46,7 +46,7 @@ describe('workdir', () => {
             workdir.use({
                 workdir: tmpFilePath
             });
-        }).toThrow(`The specified workdir exists but is not a directory: ${tmpDir}`);
+        }).toThrow(`The specified workdir exists but is not a directory: ${ tmpDir }`);
 
         process.chdir(__dirname);
         rimraf.sync(tmpDir);

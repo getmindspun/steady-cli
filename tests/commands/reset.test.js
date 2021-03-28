@@ -63,7 +63,7 @@ describe('reset', () => {
 
         expect(() => {
             reset.handler({workdir: tmpDir});
-        }).toThrow(`Ghost database not found: ${ghostDb}`);
+        }).toThrow(`Ghost database not found: ${ ghostDb }`);
 
         process.chdir(__dirname);
         rimraf.sync(tmpDir);

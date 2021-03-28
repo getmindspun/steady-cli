@@ -27,17 +27,17 @@ module.exports = {
         let formData = new FormData();
         formData.append('file', fs.createReadStream(path));
 
-        const url = `${siteUrl}/ghost/api/${version}/admin/themes/upload/`;
+        const url = `${ siteUrl }/ghost/api/${ version }/admin/themes/upload/`;
 
         if (args.verbose) {
-            console.log(`Uploading ${path} to ${url}`);
+            console.log(`Uploading ${ path } to ${ url }`);
         }
 
         return axios.post(url,
             formData,
             {
                 headers: {
-                    Authorization: `Ghost ${token(version, adminApiKey)}`,
+                    Authorization: `Ghost ${ token(version, adminApiKey) }`,
                     ...formData.getHeaders()
                 },
                 maxContentLength: Infinity,

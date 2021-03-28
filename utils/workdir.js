@@ -5,11 +5,11 @@ const stat = require('./stat');
 function check(dir) {
     const stats = stat(dir);
     if (!stats) {
-        throw new Error(`The specified workdir does not exist: ${dir}`);
+        throw new Error(`The specified workdir does not exist: ${ dir }`);
     }
 
     if (!stats.isDirectory()) {
-        throw new Error(`The specified workdir exists but is not a directory: ${dir}`);
+        throw new Error(`The specified workdir exists but is not a directory: ${ dir }`);
     }
 }
 

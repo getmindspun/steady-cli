@@ -16,7 +16,7 @@ module.exports = {
         const ghostDb = path.join(process.cwd(), 'content', 'data', 'ghost.db');
 
         if (!fs.existsSync(ghostDb)) {
-            throw new Error(`Ghost database not found: ${ghostDb}`);
+            throw new Error(`Ghost database not found: ${ ghostDb }`);
         }
 
         const db = new Database(ghostDb);

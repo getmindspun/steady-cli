@@ -12,7 +12,8 @@ module.exports = {
     ],
     rules: {
         'no-console': 'off',
-        'prefer-template': 'error'
+        'prefer-template': 'error',
+        'template-curly-spacing': ['error', 'always']
     },
     globals: {
         process: true,

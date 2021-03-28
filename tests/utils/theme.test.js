@@ -29,7 +29,7 @@ describe('theme', () => {
 
         expect(() => {
             theme.check();
-        }).toThrow(`The theme exists but is not valid since it doesn't contain 'package.json': ${themeDir}`);
+        }).toThrow(`The theme exists but is not valid since it doesn't contain 'package.json': ${ themeDir }`);
 
         process.chdir(__dirname);
         rimraf.sync(tmpDir);
