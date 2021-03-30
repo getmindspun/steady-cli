@@ -5,6 +5,9 @@ const download = require('download');
 const decompress = require('decompress');
 const execa = require('execa');
 
+const Database = require('better-sqlite3');
+
+const loadAsset = require('../utils/load-asset');
 const initrc = require('../commands/initrc');
 const dirIsEmpty = require('../utils/dir-is-empty');
 const walk = require('../utils/walk');
@@ -13,10 +16,8 @@ const workdir = require('../utils/workdir');
 const GHOST_VERSION = '3.40.5-1';
 const GHOST_ZIPFILE = `Ghost-${ GHOST_VERSION }.zip`;
 const GHOST_URL = `https://github.com/ghoststead/Ghost/releases/download/v${ GHOST_VERSION }/${ GHOST_ZIPFILE }`;
-const GHOST_DB_URL = `https://github.com/ghoststead/Ghost/releases/download/v${ GHOST_VERSION }/ghost.db`;
 
 const THEME_URL = 'https://github.com/ghoststead/ghost-theme-ghoststead/archive/master.zip';
-const ROUTES_YAML_URL = `https://github.com/ghoststead/Ghost/releases/download/v${ GHOST_VERSION }/routes.yaml`;
 
 module.exports = {
     command: 'setup',
@@ -35,42 +36,30 @@ module.exports = {
 
         await download(GHOST_URL, '.dist');
 
-        console.log('Installing base Ghost image ...');
-        execa.sync('ghost', ['install',
-            '--zip', `.dist/${ GHOST_ZIPFILE }`, '--db=sqlite3',
-            '--no-prompt', '--no-stack', '--no-setup',
-            '--dir', process.cwd()
+        console.log('Installing Ghost ...');
+        execa.sync('ghost', ['install', 'local',
+            '--zip', `.dist/${ GHOST_ZIPFILE }`
         ], {stdio: 'inherit'});
 
-        console.log('Initial Ghost configuration ...');
-        execa.sync('ghost', ['config',
-            '--ip', '0.0.0.0', '--port', '2368', '--no-prompt',
-            '--db=sqlite3', '--url', 'http://localhost:2368',
-            '--process', 'local',
-            '--dbpath', path.resolve('content', 'data', 'ghost.db')
-        ], {stdio: 'inherit'});
+        console.log('Stopping Ghost ...');
+        execa.sync('ghost', ['stop']);
 
         console.log('Configuring Ghost content path ...');
         execa.sync('ghost', ['config',
-            'paths.contentPath', path.resolve('content')
+            'paths.contentPath', path.resolve('content'),
+            '--development'
         ], {stdio: 'inherit'});
-
-        console.log('Creating config.development.json ...');
-        fs.renameSync(
-            'config.production.json',
-            'config.development.json'
-        );
-
-        console.log('Installing sqlite3 in local Ghost ...');
-        execa.sync('npx', ['yarn', 'add', 'sqlite3'], {
-            cwd: path.resolve('current'),
-            stdio: 'inherit'
-        });
 
         console.log('Fixing file permissions on Ghost installation ...');
         for await (const path of walk('current')) {
             fs.chmodSync(path, 0o644);
         }
+
+        console.log('Initializing Ghost database ...');
+        const ghostDbPath = path.resolve(process.cwd(), 'content', 'data', 'ghost-local.db');
+        const db = new Database(ghostDbPath);
+        db.exec(loadAsset('ghostdb.sql'));
+        db.close();
 
         console.log('Downloading GhostStead theme ...');
         await download(THEME_URL, '.dist', {
@@ -99,11 +88,17 @@ module.exports = {
             stdio: 'inherit'
         });
 
-        console.log(`Downloading ${ GHOST_DB_URL } ...`);
-        await download(GHOST_DB_URL, path.resolve('content/data'));
+        console.log('Installing routes.yaml ..');
+        fs.mkdirSync(path.resolve('content', 'settings'), {
+            recursive: true
+        });
+        fs.writeFileSync(
+            path.resolve('content', 'settings', 'routes.yaml'),
+            loadAsset('routes.yaml')
+        );
 
-        console.log(`Downloading ${ ROUTES_YAML_URL } ...`);
-        await download(ROUTES_YAML_URL, path.resolve('content', 'settings'));
+        console.log('Restarting Ghost ...');
+        execa.sync('ghost', ['start']);
 
         fs.writeFileSync('.nvmrc', process.version);
         initrc.handler(args);
