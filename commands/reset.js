@@ -13,7 +13,7 @@ module.exports = {
     handler: function (args) {
         workdir.use(args);
 
-        const ghostDb = path.join(process.cwd(), 'content', 'data', 'ghost.db');
+        const ghostDb = path.join(process.cwd(), 'content', 'data', 'ghost-local.db');
 
         if (!fs.existsSync(ghostDb)) {
             throw new Error(`Ghost database not found: ${ ghostDb }`);
