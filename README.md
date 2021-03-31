@@ -1,5 +1,5 @@
 ![Version](https://img.shields.io/badge/version-1.9.0-blue)
-![GitHub](https://img.shields.io/github/license/ghoststead/steady-cli?label=License)
+![GitHub](https://img.shields.io/github/license/getmindspun/steady-cli?label=License)
 ![Coverage](./badges/coverage.svg)
 ![Node](https://img.shields.io/badge/node-%3E%3D%2010.20.1-brightgreen>)
 
@@ -28,7 +28,7 @@ npm install --save-dev steady-cli
 
 ## Create an integration in your site (for publish)
 * Go to the Integration Settings link in your Ghost site and click `Add custom integration`.
-* Give the new integration any name you want e.g. Ghoststead and hit 'Create'.
+* Give the new integration any name you want e.g. Mindspun and hit 'Create'.
 * Note the 'Admin API Key' to be used later.
 
 This integration will be used to `publish` your theme to an existing site.
@@ -166,4 +166,4 @@ You can specify the API version in the `.steadyrc` file like:
 Pull requests welcome.
 
 ---
-This repository is maintained by [Ghoststead](https://www.ghoststead.com).
+This repository is maintained by [Mindspun](https://www.mindspun.com).
