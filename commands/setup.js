@@ -44,12 +44,6 @@ module.exports = {
         console.log('Stopping Ghost ...');
         execa.sync('ghost', ['stop']);
 
-        console.log('Configuring Ghost content path ...');
-        execa.sync('ghost', ['config',
-            'paths.contentPath', path.resolve('content'),
-            '--development'
-        ], {stdio: 'inherit'});
-
         console.log('Fixing file permissions on Ghost installation ...');
         for await (const path of walk('current')) {
             fs.chmodSync(path, 0o644);

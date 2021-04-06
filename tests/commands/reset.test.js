@@ -9,7 +9,7 @@ const reset = require('../../commands/reset');
 
 function createGhostDb(workdir) {
     fs.mkdirSync(path.join(workdir, 'content', 'data'), {recursive: true});
-    const db = new Database(path.join(workdir, 'content', 'data', 'ghost.db'));
+    const db = new Database(path.join(workdir, 'content', 'data', 'ghost-local.db'));
     db.exec(`CREATE TABLE sessions
                   (
                       "id" INTEGER
@@ -59,7 +59,7 @@ describe('reset', () => {
         expect.assertions(1);
 
         const tmpDir = fs.mkdtempSync(fs.realpathSync(os.tmpdir()) + path.sep);
-        const ghostDb = path.join(tmpDir, 'content', 'data', 'ghost.db');
+        const ghostDb = path.join(tmpDir, 'content', 'data', 'ghost-local.db');
 
         expect(() => {
             reset.handler({workdir: tmpDir});

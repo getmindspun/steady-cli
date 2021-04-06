@@ -5,6 +5,7 @@ const rimraf = require('rimraf');
 
 jest.mock('execa');
 jest.mock('decompress');
+jest.mock('../../utils/load-asset', () => () => '');
 
 describe('setup', () => {
     it('should initialize directory', async () => {
@@ -22,6 +23,10 @@ describe('setup', () => {
                 const currentDir = `${ process.cwd() + path.sep }current${ path.sep }`;
                 fs.mkdirSync(currentDir);
                 fs.writeFileSync(`${ currentDir + path.sep }README`, '');
+
+                const dataDir = path.join(process.cwd(), 'content', 'data');
+                fs.mkdirSync(dataDir, {recursive: true});
+                fs.writeFileSync(`${ dataDir + path.sep }ghost-local.db`, '');
             });
         });
 
