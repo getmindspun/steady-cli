@@ -48,7 +48,7 @@ If you want to check your theme into `git` (and you should),
 check in the contents of the `content/data/ghoststead` directory only.
 i.e. the `ghoststead` directory should be the top level directory in your git repository.
 
-### Start/Stop Ghost
+### Start/Stop/Restart Ghost
 Start the local version of Ghost that was installed via `setup` by running the command:
 ```shell script
 steady start
@@ -60,6 +60,12 @@ You can stop your Ghost instance via:
 ```shell script
 steady stop
 ```
+
+Restart Ghost via:
+```shell
+steady restart
+```
+If Ghost is not already running, restart just starts Ghost.
 
 ### Theme development
 In order to develop a new theme,  you have to build it.
