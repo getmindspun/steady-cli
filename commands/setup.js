@@ -12,12 +12,9 @@ const initrc = require('../commands/initrc');
 const dirIsEmpty = require('../utils/dir-is-empty');
 const walk = require('../utils/walk');
 const workdir = require('../utils/workdir');
+const ghost = require('../utils/ghost');
 
-const GHOST_VERSION = '3.40.5-1';
-const GHOST_ZIPFILE = `Ghost-${ GHOST_VERSION }.zip`;
-const GHOST_URL = `https://github.com/ghoststead/Ghost/releases/download/v${ GHOST_VERSION }/${ GHOST_ZIPFILE }`;
-
-const THEME_URL = 'https://github.com/ghoststead/ghost-theme-ghoststead/archive/master.zip';
+const THEME_URL = 'https://github.com/getmindspun/spin/archive/deploy.zip';
 
 module.exports = {
     command: 'setup',
@@ -34,11 +31,11 @@ module.exports = {
             return Promise.reject(new Error('Current directory is not empty, setup cannot continue.'));
         }
 
-        await download(GHOST_URL, '.dist');
+        const ghostZipPath = await ghost.downloadGhost();
 
         console.log('Installing Ghost ...');
-        execa.sync('ghost', ['install', 'local',
-            '--zip', `.dist/${ GHOST_ZIPFILE }`
+        execa.sync('ghost', [
+            'install', 'local', '--zip', ghostZipPath
         ], {stdio: 'inherit'});
 
         console.log('Stopping Ghost ...');
@@ -55,7 +52,7 @@ module.exports = {
         db.exec(loadAsset('ghostdb.sql'));
         db.close();
 
-        console.log('Downloading GhostStead theme ...');
+        console.log('Downloading spin theme ...');
         await download(THEME_URL, '.dist', {
             filename: 'theme.zip'
         });
@@ -66,19 +63,19 @@ module.exports = {
             path.resolve('content', 'themes')
         );
         fs.renameSync(
-            path.resolve('content', 'themes', 'ghost-theme-ghoststead-master'),
-            path.resolve('content', 'themes', 'ghoststead')
+            path.resolve('content', 'themes', 'spin-deploy'),
+            path.resolve('content', 'themes', 'spin')
         );
 
         console.log('Installing theme dependencies ...');
         execa.sync('npm', ['install'], {
-            cwd: path.resolve('content', 'themes', 'ghoststead'),
+            cwd: path.resolve('content', 'themes', 'spin'),
             stdio: 'inherit'
         });
 
-        console.log('Building GhostStead theme ...');
+        console.log('Building spin theme ...');
         execa.sync('npm', ['run', 'build'], {
-            cwd: path.resolve('content', 'themes', 'ghoststead'),
+            cwd: path.resolve('content', 'themes', 'spin'),
             stdio: 'inherit'
         });
 
