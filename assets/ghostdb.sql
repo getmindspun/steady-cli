@@ -47,8 +47,8 @@ SET value = '<link href="https://fonts.googleapis.com/css?family=Muli:400,800&am
 </style>' WHERE `key` = 'codeinjection_head';
 
 UPDATE settings
-SET value = '{"members": true}'
-WHERE `key` = 'labs';
+SET value = 'false'
+WHERE `key` = 'portal_button';
 
 UPDATE settings
 SET value = 'https://static.mindspun.com/images/mindspun-avatar-500x500.png'
@@ -133,5 +133,12 @@ WHERE tags.name = '#company' AND posts.slug IN (
     'contact',
     'privacy',
     'contribute'
-)
+);
+
+--
+-- FINALIZE
+--
+UPDATE posts
+    SET created_at = (SELECT MAX(created_at) FROM posts),
+        updated_at = created_at, published_at = created_at;
 
