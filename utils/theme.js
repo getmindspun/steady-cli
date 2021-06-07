@@ -5,14 +5,14 @@ const stat = require('./stat');
 
 /* This function assumes the working director is cwd */
 function fullpath(themeName, options) {
-    themeName = themeName || 'ghoststead';
+    themeName = themeName || 'spin';
     options = options || {};
     const cwd = options.cwd || process.cwd();
     return path.join(cwd, 'content', 'themes', themeName);
 }
 
 function check(themeName) {
-    themeName = themeName || 'ghoststead';
+    themeName = themeName || 'spin';
     const themeDir = fullpath(themeName);
 
     const stats = stat(themeDir);

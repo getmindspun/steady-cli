@@ -31,12 +31,12 @@ module.exports = {
                  SET value = NULL
                  WHERE key = 'next_update_check'`);
         db.exec(`UPDATE settings
-                 SET value = 'ghoststead'
+                 SET value = 'spin'
                  WHERE key = 'active_theme'`);
         db.exec(`UPDATE users
                  SET name   = 'ghost-user',
                      slug   = 'ghost-user',
-                     email  = 'ghoststead@example.org',
+                     email  = 'mindspun@example.org',
                      status = 'inactive'
                  WHERE id = '1'`);
         db.exec(`UPDATE posts

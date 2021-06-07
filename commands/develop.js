@@ -13,7 +13,7 @@ module.exports = {
     handler: function (args) {
         workdir.use(args);
 
-        const themeName = rc.config.themeName || 'ghoststead';
+        const themeName = rc.config.themeName || 'spin';
         theme.check(themeName);
 
         execa.sync('npm', ['run', 'dev'], {

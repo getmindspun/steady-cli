@@ -13,7 +13,7 @@ describe('develop', () => {
         expect.assertions(4);
 
         const tmpDir = fs.mkdtempSync(os.tmpdir() + path.sep);
-        const themeDir = theme.fullpath('ghoststead', {cwd: tmpDir});
+        const themeDir = theme.fullpath('spin', {cwd: tmpDir});
         fs.mkdirSync(themeDir, {recursive: true});
 
         const packageJson = path.resolve(themeDir, 'package.json');

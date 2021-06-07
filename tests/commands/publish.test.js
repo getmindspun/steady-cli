@@ -20,7 +20,7 @@ describe('publish', () => {
         expect(publish.describe).toBeTruthy();
 
         const tmpDir = fs.realpathSync(fs.mkdtempSync(os.tmpdir() + path.sep));
-        const themeDir = path.join(tmpDir, 'content', 'themes', 'ghoststead');
+        const themeDir = path.join(tmpDir, 'content', 'themes', 'spin');
         fs.mkdirSync(themeDir, {recursive: true});
         fs.writeFileSync(
             path.join(themeDir, 'package.json'),
@@ -49,7 +49,7 @@ describe('publish', () => {
         expect(publish.describe).toBeTruthy();
 
         const tmpDir = fs.realpathSync(fs.mkdtempSync(os.tmpdir() + path.sep));
-        const themeDir = path.join(tmpDir, 'content', 'themes', 'ghoststead');
+        const themeDir = path.join(tmpDir, 'content', 'themes', 'spin');
         fs.mkdirSync(themeDir, {recursive: true});
         fs.writeFileSync(
             path.join(themeDir, 'package.json'),
@@ -99,7 +99,7 @@ describe('publish', () => {
         const tmpDir = fs.mkdtempSync(os.tmpdir() + path.sep);
         process.chdir(tmpDir);
 
-        const themeDir = path.join(tmpDir, 'content', 'themes', 'ghoststead');
+        const themeDir = path.join(tmpDir, 'content', 'themes', 'spin');
         fs.mkdirSync(themeDir, {recursive: true});
 
         await publish.handler({});

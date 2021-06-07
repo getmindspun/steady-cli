@@ -14,8 +14,8 @@ describe('theme', () => {
         process.chdir(tmpDir);
 
         expect(() => {
-            theme.check('ghoststead');
-        }).toThrow('The configured theme does not exist: ghoststead');
+            theme.check('spin');
+        }).toThrow('The configured theme does not exist: spin');
     });
 
     it('should fail with not directory', () => {

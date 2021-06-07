@@ -5,7 +5,7 @@ const workdir = require('../utils/workdir');
 const DEFAULT = {
     siteUrl: null,
     adminApiKey: null,
-    themeName: 'ghoststead'
+    themeName: 'spin'
 };
 
 module.exports = {

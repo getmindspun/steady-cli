@@ -13,7 +13,7 @@ module.exports = {
     handler: async function (args) {
         workdir.use(args);
 
-        const themeName = rc.config.themeName || 'ghoststead';
+        const themeName = rc.config.themeName || 'spin';
 
         let themePath = path.resolve('content', 'themes', themeName);
         if (!fs.existsSync(themePath)) {
