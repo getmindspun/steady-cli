@@ -1,4 +1,4 @@
-const fs = require('fs');
+const fs = require('fs-extra');
 const path = require('path');
 
 const download = require('download');
@@ -87,6 +87,32 @@ module.exports = {
             path.resolve('content', 'settings', 'routes.yaml'),
             loadAsset('routes.yaml')
         );
+
+        console.log('Installing ghost-image-store in local Ghost ...');
+        execa.sync('npx', ['yarn', 'add', 'ghost-image-store'], {
+            cwd: path.resolve('current'),
+            stdio: 'inherit'
+        });
+
+        fs.ensureDir(path.resolve('content', 'adapters', 'storage'));
+        fs.copySync(
+            path.resolve('current', 'node_modules', 'ghost-image-store'),
+            path.resolve('content', 'adapters', 'storage', 'image-store')
+        );
+
+        execa.sync('npx', ['yarn', 'install', '--production=true'], {
+            cwd: path.resolve('content', 'adapters', 'storage', 'image-store'),
+            stdio: 'inherit'
+        });
+
+        const config = fs.readJsonSync('config.development.json');
+        config.storage = {
+            active: 'image-store',
+            'image-store': {
+                webpQuality: 80
+            }
+        };
+        fs.writeJsonSync('config.development.json', config, {spaces: 4});
 
         console.log('Restarting Ghost ...');
         execa.sync('ghost', ['start']);
